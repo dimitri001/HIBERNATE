@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-may-2016 12:18:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.sistema.hibernate.models.Pedido" table="PEDIDO">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="numeroPedido" type="java.lang.String">
+            <column name="NUMEROPEDIDO" />
+        </property>
+        <list name="listaProductos" inverse="false" table="PRODUCTO" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <list-index></list-index>
+            <one-to-many class="org.sistema.hibernate.models.Producto" />
+        </list>
+        <property name="fecha" type="java.util.Date">
+            <column name="FECHA" />
+        </property>
+        <property name="costeTotal" type="java.math.BigDecimal">
+            <column name="COSTETOTAL" />
+        </property>
+        <one-to-one name="proveedor" class="org.sistema.hibernate.models.Proveedor"></one-to-one>
+        <property name="estadoPedido">
+            <column name="ESTADOPEDIDO" />
+            <type name="org.hibernate.type.EnumType">
+                <param name="type">12</param>
+                <param name="enumClass">org.sistema.hibernate.models.EstadoPedido</param>
+            </type>
+        </property>
+    </class>
+</hibernate-mapping>

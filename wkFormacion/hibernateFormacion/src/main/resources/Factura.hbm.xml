@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-may-2016 12:18:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.sistema.hibernate.models.Factura" table="FACTURA">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <property name="numeroFactura" type="java.lang.String">
+            <column name="NUMEROFACTURA" />
+        </property>
+        <one-to-one name="cliente" class="org.sistema.hibernate.models.Cliente"></one-to-one>
+        <list name="listaProductos" inverse="false" table="PRODUCTO" lazy="true">
+            <key>
+                <column name="ID" />
+            </key>
+            <list-index></list-index>
+            <one-to-many class="org.sistema.hibernate.models.Producto" />
+        </list>
+        <property name="fechaFactura" type="java.util.Date">
+            <column name="FECHAFACTURA" />
+        </property>
+        <property name="precioTotal" type="java.math.BigDecimal">
+            <column name="PRECIOTOTAL" />
+        </property>
+        <property name="precioTotalSinIVA" type="java.math.BigDecimal">
+            <column name="PRECIOTOTALSINIVA" />
+        </property>
+    </class>
+</hibernate-mapping>

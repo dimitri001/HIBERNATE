@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-may-2016 12:18:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="org.sistema.hibernate.models.Cliente" table="CLIENTE">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="persona" class="org.sistema.hibernate.models.Persona" fetch="join">
+            <column name="PERSONA" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

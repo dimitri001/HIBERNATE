@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-may-2016 12:18:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <joined-subclass name="org.sistema.hibernate.models.Empleado" extends="org.sistema.hibernate.models.Persona" table="EMPLEADO" lazy="false">
+        <key>
+            <column name="APELLIDOS" />
+        </key>
+        <property name="id" type="java.lang.Integer">
+            <column name="ID" />
+        </property>
+        <property name="numEmpleado" type="java.lang.String">
+            <column name="NUMEMPLEADO" />
+        </property>
+        <property name="puesto" type="java.lang.String">
+            <column name="PUESTO" />
+        </property>
+        <many-to-one name="persona" class="org.sistema.hibernate.models.Persona" access="field" fetch="join">
+            <column name="PERSONA" />
+        </many-to-one>
+    </joined-subclass>
+</hibernate-mapping>
