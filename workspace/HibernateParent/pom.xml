@@ -1,0 +1,247 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.sopra.formacion</groupId>
+  <artifactId>HibernateParent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>HibernateParent</name>
+  
+   <description>Configuracion base para los proyectos de la formación de Hibernate</description>
+  
+  
+  <organization>
+		<name>Sopra Academy</name>
+  </organization>
+  
+  
+  <properties>
+		<!-- Propiedades comunes a todos los proyectos -->
+		<jdk.version>1.7</jdk.version>
+
+		<!-- Configuración de las versiones del os plugins de Maven -->
+		<maven-compiler.version>3.5</maven-compiler.version>
+		<maven-war.version>2.6</maven-war.version>		
+
+		<!-- Gestión de versiones -->
+		<lombok.version>1.16.6</lombok.version>
+		<javax.version>7.0</javax.version>
+		<junit.version>3.8.1</junit.version>
+		<hibernate-core.version>4.0.1.Final</hibernate-core.version>
+		<hibernate-validator.version>4.2.0.Final</hibernate-validator.version>
+		<hibernate-commons-annotations.version>4.0.1.Final</hibernate-commons-annotations.version>
+		<hibernate-jpa-2.0-api.version>1.0.1.Final</hibernate-jpa-2.0-api.version>
+		<hibernate-entitymanager.version>4.0.1.Final</hibernate-entitymanager.version>
+		<validation-api.version>1.0.0.GA</validation-api.version>
+		<slf4j-api.version>1.6.4</slf4j-api.version>
+		<jboss-logging.version>3.1.0.CR2</jboss-logging.version>
+		<slf4j-log4j12.version>1.6.4</slf4j-log4j12.version>
+		<mysql-connector-java.version>5.1.6</mysql-connector-java.version>
+		<org.springframework.version>3.2.1.RELEASE</org.springframework.version>
+		<jstl.version>1.2</jstl.version>
+		<servlet-api.version>2.5</servlet-api.version>
+		<commons-dbcp.version>20030825.184428</commons-dbcp.version>
+		<commons-pool.version>20030825.183949</commons-pool.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		
+  </properties>
+
+  
+  <build>
+		<pluginManagement>
+			<plugins>
+				<!-- Maven Compiler plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler.version}</version>
+					<configuration>
+						<source>${jdk.version}</source>
+						<target>${jdk.version}</target>
+					</configuration>
+				</plugin>
+				<!-- Maven WAR plugin -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>${maven-war.version}</version>
+					<configuration>
+                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    </configuration>
+					
+				</plugin>
+				<!-- Maven Jetty Plugin -->
+				<plugin>
+					<groupId>org.eclipse.jetty</groupId>
+					<artifactId>jetty-maven-plugin</artifactId>
+					<version>${jetty.version}</version>
+					<configuration>
+						<scanIntervalSeconds>10</scanIntervalSeconds>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<!-- Todos los proyectos utilizaran el plugin compiler con la configuración 
+				establecida en la sección pluginManagement -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+		</plugins>
+		
+		<resources>  
+      <resource>  
+         <filtering>true</filtering>  
+         <directory>src/main/resources</directory>  
+      </resource>  
+   </resources>  
+	</build>
+   
+   <dependencyManagement>
+		<dependencies>
+			<!-- Lombok -->
+			
+			
+			
+			<dependency>
+				<groupId>javax</groupId>
+				<artifactId>javaee-web-api</artifactId>
+				<version>${javax.version}</version>
+			</dependency>
+			
+           	<!-- Log system -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j-api.version}</version>
+			</dependency>
+			
+
+	
+	<!-- Hibernate -->
+			
+	  <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>${junit.version}</version>
+         <scope>test</scope>
+       </dependency>
+    
+    <!--     <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-core</artifactId>
+          <version>${hibernate-core.version}</version>
+        </dependency>
+ 
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+          <version>${hibernate-validator.version}</version>
+        </dependency>        
+ 
+        <dependency>
+            <groupId>org.hibernate.common</groupId>
+            <artifactId>hibernate-commons-annotations</artifactId>
+            <version>${hibernate-commons-annotations.version}</version>
+            <classifier>tests</classifier>
+        </dependency>
+ 
+        <dependency>
+            <groupId>org.hibernate.javax.persistence</groupId>
+            <artifactId>hibernate-jpa-2.0-api</artifactId>
+            <version>${hibernate-jpa-2.0-api.version}</version>
+        </dependency>  -->    
+ 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>${hibernate-entitymanager.version}</version>
+        </dependency>       
+ 
+        <dependency>
+             <groupId>javax.validation</groupId>
+             <artifactId>validation-api</artifactId>
+             <version>${validation-api.version}</version>
+             <scope>provided</scope>
+         </dependency>
+ 
+         <dependency>
+	      <groupId>javax.servlet</groupId>
+	      <artifactId>jstl</artifactId>
+	      <version>${jstl.version}</version>
+         </dependency>
+
+		 <dependency>
+              <groupId>javax.servlet</groupId>
+              <artifactId>servlet-api</artifactId>
+              <version>${servlet-api.version}</version>
+ 		 </dependency>
+
+        <dependency>
+             <groupId>org.jboss.logging</groupId>
+             <artifactId>jboss-logging</artifactId>
+             <version>${jboss-logging.version}</version>
+         </dependency>
+         
+         <dependency>
+             <groupId>org.slf4j</groupId>
+             <artifactId>slf4j-log4j12</artifactId>
+             <version>${slf4j-log4j12.version}</version>
+         </dependency>
+         
+         <dependency>
+	        <groupId>mysql</groupId>
+	           <artifactId>mysql-connector-java</artifactId>
+	           <version>${mysql-connector-java.version}</version>
+	      </dependency>
+			
+		<!-- Spring -->
+		<dependency>
+           <groupId>org.springframework</groupId>
+ 		   <artifactId>spring-beans</artifactId>
+		   <version>${org.springframework.version}</version>
+ 		   </dependency>
+	   
+	    <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+ 	        <version>${org.springframework.version}</version>
+       </dependency>
+
+       <dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-web</artifactId>
+           <version>${org.springframework.version}</version>
+       </dependency>
+ 
+     <dependency>
+       <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+       <version>${org.springframework.version}</version>
+     </dependency>
+ 
+    <dependency>
+       <groupId>org.springframework</groupId>
+       <artifactId>spring-orm</artifactId>
+       <version>${org.springframework.version}</version>
+    </dependency>
+		
+	<dependency>
+		<groupId>commons-dbcp</groupId>
+		<artifactId>commons-dbcp</artifactId>
+		<version>${commons-dbcp.version}</version>
+	</dependency>
+
+
+   <dependency>
+		<groupId>commons-pool</groupId>
+		<artifactId>commons-pool</artifactId>
+		<version>${commons-pool.version}</version>
+	</dependency>	
+			
+			
+		</dependencies>
+   </dependencyManagement>
+   
+	
+  
+</project>

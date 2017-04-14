@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-ene-2016 11:09:51 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.curso.hibernate.app_Hibernate.Modelos.Correoelectronico" table="correoelectronico" catalog="curso_hibernate_user">
+        <id name="idCorreoelectronico" type="java.lang.Integer">
+            <column name="idCorreoelectronico" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cliente" class="com.curso.hibernate.app_Hibernate.Modelos.Cliente" fetch="select">
+            <column name="idCliente" not-null="true" />
+        </many-to-one>
+        <property name="correoelectronico" type="string">
+            <column name="correoelectronico" length="45" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

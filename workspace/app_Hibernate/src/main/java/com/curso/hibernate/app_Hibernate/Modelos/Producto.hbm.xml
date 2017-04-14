@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 21-ene-2016 11:09:51 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.curso.hibernate.app_Hibernate.Modelos.Producto" table="producto" catalog="curso_hibernate_user">
+        <id name="idProducto" type="java.lang.Integer">
+            <column name="idProducto" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="cliente" class="com.curso.hibernate.app_Hibernate.Modelos.Cliente" fetch="select">
+            <column name="idCliente" not-null="true" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="nombre" length="45" not-null="true" />
+        </property>
+        <property name="cantidades" type="int">
+            <column name="cantidades" not-null="true" />
+        </property>
+    </class>
+    
+    <!-- EJERCICIO DE SQLNATIVE -->
+   
+    <sql-query name="productosNombrados">
+ 
+         <return-scalar column="nombre" type="string"/>
+         <return-scalar column="idProducto" type="long"/>
+    SELECT products.idProducto AS idProducto,
+           products.nombre AS nombre
+           FROM PRODUCTO products
+           WHERE products.nombre LIKE :nameProducto
+  </sql-query>
+    
+  
+
+  
+  
+</hibernate-mapping>

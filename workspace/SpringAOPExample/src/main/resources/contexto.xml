@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	         xmlns="http://www.springframework.org/schema/beans"
+	     xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	                    http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		                http://www.springframework.org/schema/context 
+		                http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+		                
+
+	<!-- declaracion del servicio de mayusculas -->
+	<bean id="mayusculasService"
+		class="csm.formacion.spring.simple.MayusculasServiceImpl" />
+
+	<!-- declaracion del servicio de eco -->
+	<bean id="ecoService"
+		class="csm.formacion.spring.simple.EcoServiceImpl">
+		<property name="mayusculasService">
+			<ref bean="mayusculasService" />
+		</property>
+		<property name="prefijoMensaje">
+			<value>eco: </value>
+		</property>
+	</bean>
+	
+	<!-- advice de llamadas a metodo -->
+	<bean id="logBeforeAdvice"
+		class="csm.formacion.spring.aop.LogBeforeAdvice" />
+
+	<!-- advice de trazas de resultado -->
+	<bean id="logReturnAdvice"
+		class="csm.formacion.spring.aop.LogReturnAdvice" />
+		
+	<!-- advice de rendimiento -->
+	<bean id="rendimientoAdvice"
+		class="csm.formacion.spring.aop.RendimientoInterceptor" />
+		
+	<!-- advice de las excepciones del servicio eco -->
+	<bean id="ecoExceptionAdvice"
+		class="csm.formacion.spring.aop.EcoExceptionAdvice" />
+
+	<!-- objeto proxy de eco service -->
+	<bean id="ecoServiceAdviced"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<value>csm.formacion.spring.simple.IEcoService</value>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>logBeforeAdvice</value>
+				<value>logReturnAdvice</value>
+				<value>rendimientoAdvice</value>
+				<value>ecoExceptionAdvice</value>
+			</list>
+		</property>
+		<property name="target">
+			<ref bean="ecoService"/>
+		</property>
+	</bean>
+	
+	<!-- objeto proxy de mayusculas service -->
+	<bean id="mayusculasServiceAdviced" parent="ecoServiceAdviced">
+		<property name="proxyInterfaces">
+			<value>csm.formacion.spring.simple.IMayusculasService</value>
+		</property>
+		<property name="target">
+			<ref bean="mayusculasService"/>
+		</property>
+	</bean>
+	
+	<!-- declaracion de un advisor -->
+	<bean id="rendimientoAdvisor"
+		class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+		<property name="mappedName">
+			<value>ecoMay*</value>
+		</property>
+		<property name="advice">
+			<ref bean="rendimientoAdvice" />
+		</property>
+	</bean>
+
+	<!-- objeto proxy de eco service con pointcuts-->
+	<bean id="ecoServicePointCut"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<value>csm.formacion.spring.simple.IEcoService</value>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>rendimientoAdvisor</value>
+			</list>
+		</property>
+		<property name="target">
+			<ref bean="ecoService"/>
+		</property>
+	</bean>
+
+	<!-- autoproxy -->
+	<bean id="rendimientoProxyCreator"
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="beanNames">
+			<list>
+				<value>*Service</value>
+			</list>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>rendimientoAdvice</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>
