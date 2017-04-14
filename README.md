@@ -1,2 +1,5 @@
-# HIBERNATE
-Hibernate learning purpouses
+android-ago
+==========
+
+Project created for hibernate learning purpouses
+======
